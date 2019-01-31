@@ -9,6 +9,6 @@ namespace SMSTool
         public static readonly string COM_PORT      = "COM5";
         public static readonly bool USE_SIM         = false;
         public static readonly int SERVICE_FREQUENCY= 100000;
-        public static readonly string API_URL       = "http://104.248.118.6/api/public/add_sms_data";
+        public static readonly string API_URL       = "http://";
     }
 }
