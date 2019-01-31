@@ -9,11 +9,10 @@ namespace SMSTool
     {
         private int TimeOut = 1000;
         private SerialPort _port;
-        private bool Connected;
 
         public SMSTool(){ SetUp(); }
 
-        public void SetUp()
+        private void SetUp()
         {
             _port = new SerialPort(Config.COM_PORT, 9600)
             {
@@ -26,22 +25,11 @@ namespace SMSTool
                 DtrEnable   = true,
                 RtsEnable   = true,
                 NewLine     = Environment.NewLine,
-                Encoding    = Encoding.GetEncoding("iso-8859-1"),
+                Encoding    = Encoding.GetEncoding("iso-8859-1")
             };
-
-            try
-            {
-                _port.Open();
-                Connected = true;
-                var Storage = (Config.USE_SIM) ? "SM" : "ME";
-                ExeCommand($"AT+CMGF=1{(char)(13)}");               //Set Text Mode to Text
-                ExeCommand($"AT+CPMS=\"{Storage}\"{(char)(13)}");   //Set Text Storage
-                Logger.Write($"Device is connected and ready");
-            }
-            catch (Exception ex) {
-                Close();
-                Logger.Write($"SetUp >> Device not connected >> {ex.Message}");
-            }
+            var Storage = (Config.USE_SIM) ? "SM" : "ME" ;
+            ExeCommand($"AT+CMGF=1{(char)(13)}");               //Set Text Mode to Text
+            ExeCommand($"AT+CPMS=\"{Storage}\"{(char)(13)}");   //Set Text Storage
         }
 
         public void DeviceInfo()
@@ -53,8 +41,15 @@ namespace SMSTool
             ExeCommand("AT+CIMI" + (char)(13));
         }
 
-        public string ReadSMS() { return ExeCommand(@"AT+CMGL=""ALL""" + (char)(13)); }
-        public string DeleteSMS(int index) { return ExeCommand($"AT+CMGD={index}" + (char)(13)); }
+        public string ReadSMS()
+        {
+            return ExeCommand(@"AT+CMGL=""ALL""" + (char)(13));
+        }
+
+        public string DeleteSMS(int index)
+        {
+            return ExeCommand($"AT+CMGD=\"{index}\"" + (char)(13));
+        }
 
         public void SendSMS()
         {
@@ -65,6 +60,7 @@ namespace SMSTool
         private string ExeCommand(string cmd)
         {
             try {
+                if (!_port.IsOpen) { _port.Open(); }
                 _port.BaseStream.Flush();
                 _port.DiscardOutBuffer();
                 _port.DiscardInBuffer();
@@ -73,19 +69,18 @@ namespace SMSTool
                 return _port.ReadExisting();
             }
             catch(Exception ex) {
-                Close();
-                Logger.Write($"ExeCommand >> Device not connected >> {ex.Message}");
+                Console.WriteLine(ex.Message);
             }
-           return string.Empty;
+            return null;
         }
         
-        public string[] ListPorts() { return SerialPort.GetPortNames(); }
-
-        public void Close() {
-            Connected = false;
-            _port.Close();
+        public string[] ListPorts()
+        {
+            return SerialPort.GetPortNames();
         }
 
-        public bool IsConnected() { return Connected; }
+        public void Close() {
+            _port.Close();
+        } 
     }
 }

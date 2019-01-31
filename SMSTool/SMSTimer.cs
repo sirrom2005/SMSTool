@@ -1,72 +1,77 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 
+
+/// <summary>
+/// Main loader classs
+/// </summary>
 namespace SMSTool
 {
     public class SMSTimer
     {
         private List<ShortMessage> ShortMessageList;
-       // private readonly ShortMessage Msg = new ShortMessage();
         private Timer timer;
         private SMSTool tool;
 
-        public SMSTimer() {
-            tool = new SMSTool();
-        }
+        public SMSTimer() { tool = new SMSTool(); }
 
         public void Start() {
-            timer = new Timer(SmsCallBack, null, 0, Config.SERVICE_FREQUENCY);
+            Logger.Write($"Starting Service in {Config.SERVICE_DELAY_START/1000} seconds");
+            timer = new Timer(SmsCallBack, null, Config.SERVICE_DELAY_START, Config.SERVICE_FREQUENCY);      
         }
 
         public void Stop() {
+            Logger.Write($"Stopping Service");
             tool.Close();
+            if (timer != null)
+            {
+                timer.Dispose();
+            }
         }
 
         private async void SmsCallBack(object state)
         {
+            if (!tool.IsConnected()) { return; }
             ReadSms();
-
-            Console.WriteLine(ShortMessageList.Count);
-            if (ShortMessageList.Count>0) {
-                string output = JsonConvert.SerializeObject(ShortMessageList);
-                int count = await WebClient.PostDataAsync(output);
-                if(count==ShortMessageList.Count) {
-                    var smsList = ShortMessageList;
-                   
-                    foreach (var info in smsList)
+            if (ShortMessageList.Count > 0)
+            {
+                int count = await WebClient.PostDataAsync(JsonConvert.SerializeObject(ShortMessageList));                 
+                if (count == ShortMessageList.Count)
+                {
+                    Logger.Write($"{count} Message added to database");
+                    for (int i = 0; i<ShortMessageList.Count; i++)
                     {
-                        //Console.WriteLine(info.ToString());
-                        //tool.DeleteSMS(info.Index);
-                        smsList.RemoveAll(x => x.Index == info.Index);
-                        Console.WriteLine(info);
+                        if (!tool.DeleteSMS(ShortMessageList[i].Index).Contains("OK\r\n"))
+                        {
+                            Logger.Write($"Error Deleting message\r\n{ShortMessageList[i].ToString()}");
+                        }
                     }
                 }
             }
-            Console.WriteLine(ShortMessageList.Count);
         }
 
         private void ReadSms()
         {
-            string sms = tool.ReadSMS();
-            if (sms.Contains("OK\r\n"))
+            ShortMessageList = new List<ShortMessage>();
+            var SMS = tool.ReadSMS();
+
+            if (SMS.Contains("OK\r\n"))
             {
-                ShortMessageList = new List<ShortMessage>();
                 Regex r = new Regex(@"\+CMGL: (\d+),""(.+)"",""(.+)"",(.*),""(.+)""\r\n(.+)\r\n");
-                Match m = r.Match(sms);
+                Match m = r.Match(SMS);
                 while (m.Success)
                 {
                     ShortMessageList.Add(new ShortMessage()
-                                            {
-                                                Index   = int.Parse(m.Groups[1].Value),
-                                                Status  = m.Groups[2].Value,
-                                                Sender  = m.Groups[3].Value,
-                                                Alphabet= m.Groups[4].Value,
-                                                SmsDate = m.Groups[5].Value,
-                                                Message = m.Groups[6].Value
-                                            });                       
+                    {
+                        Index       = int.Parse(m.Groups[1].Value),
+                        Status      = m.Groups[2].Value,
+                        Sender      = m.Groups[3].Value,
+                        Alphabet    = m.Groups[4].Value,
+                        SmsDate     = m.Groups[5].Value,
+                        Message     = m.Groups[6].Value
+                    });
                     m = m.NextMatch();
                 }
             }

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.IO.Ports;
+using SMSTool;
 
-namespace SMSTool
+namespace CodeRunner
 {
     class Program
     {
