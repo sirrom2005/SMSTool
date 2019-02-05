@@ -1,6 +1,6 @@
 ﻿namespace SMSServiceTool
 {
-    partial class Service
+    partial class SMSService
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            // 
+            // SMSService
+            // 
+            this.ServiceName = "SMS Service";
+
         }
 
         #endregion

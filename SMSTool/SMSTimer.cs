@@ -18,12 +18,12 @@ namespace SMSTool
         public SMSTimer() { tool = new SMSTool(); }
 
         public void Start() {
-            Logger.Write($"Starting Service in {Config.SERVICE_DELAY_START/1000} seconds");
+            Logger.Write($"Starting SMS Service in {Config.SERVICE_DELAY_START/1000} seconds on COM PORT >> {Config.COM_PORT}");
             timer = new Timer(SmsCallBack, null, Config.SERVICE_DELAY_START, Config.SERVICE_FREQUENCY);      
         }
 
         public void Stop() {
-            Logger.Write($"Stopping Service");
+            Logger.Write($"Stopping SMS Service");
             tool.Close();
             if (timer != null)
             {

@@ -17,7 +17,7 @@ namespace SMSServiceTool
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new Service()
+                new SMSService()
             };
             ServiceBase.Run(ServicesToRun);
         }

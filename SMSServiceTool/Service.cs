@@ -3,13 +3,13 @@ using System.ServiceProcess;
 
 namespace SMSServiceTool
 {
-    public partial class Service : ServiceBase
+    public partial class SMSService : ServiceBase
     {
         private SMSTimer tool;
-        public Service()
+        public SMSService()
         {
-            tool = new SMSTimer();
             InitializeComponent();
+            tool = new SMSTimer();
         }
 
         protected override void OnStart(string[] args) { tool.Start(); }

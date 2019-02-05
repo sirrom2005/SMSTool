@@ -41,7 +41,7 @@
             // 
             this.StingaLtdSmsTool.Description = "Read SMS message about infrastructure activities";
             this.StingaLtdSmsTool.DisplayName = "StingaLtd SMS Tool";
-            this.StingaLtdSmsTool.ServiceName = "Service1";
+            this.StingaLtdSmsTool.ServiceName = "SMS Service Tool";
             this.StingaLtdSmsTool.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
