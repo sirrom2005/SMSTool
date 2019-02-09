@@ -34,10 +34,10 @@ namespace StingaSmsTool
                 Text    = "Form1",
                 Visible = true,
             };
-            SysTray.DoubleClick += new EventHandler(this.notifyIconDoubleClick);
+            SysTray.DoubleClick += new EventHandler(NotifyIconDoubleClick);
         }
 
-        private void notifyIconDoubleClick(object sender, EventArgs e)
+        private void NotifyIconDoubleClick(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
                 this.WindowState = FormWindowState.Normal;

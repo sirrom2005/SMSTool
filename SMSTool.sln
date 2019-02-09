@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeRunner", "CodeRunner\CodeRunner.csproj", "{7D3F20C2-7F9A-43CA-AB35-6879E839F189}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSTool", "SMSTool\SMSTool.csproj", "{FA66D138-362B-4D5E-8834-14B9A6AD2520}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSServiceTool", "SMSServiceTool\SMSServiceTool.csproj", "{F9510C3E-66E4-4896-8AA8-D24D97F738E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StingaSmsTool", "StingaSmsTool\StingaSmsTool.csproj", "{6BA3941E-F9BB-4E37-9C85-7CCEA512E8D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeRunner", "CodeRunner\CodeRunner.csproj", "{43EE42AA-3FCD-4168-8B09-A89AED74CFCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7D3F20C2-7F9A-43CA-AB35-6879E839F189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D3F20C2-7F9A-43CA-AB35-6879E839F189}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D3F20C2-7F9A-43CA-AB35-6879E839F189}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D3F20C2-7F9A-43CA-AB35-6879E839F189}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA66D138-362B-4D5E-8834-14B9A6AD2520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA66D138-362B-4D5E-8834-14B9A6AD2520}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA66D138-362B-4D5E-8834-14B9A6AD2520}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{6BA3941E-F9BB-4E37-9C85-7CCEA512E8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BA3941E-F9BB-4E37-9C85-7CCEA512E8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BA3941E-F9BB-4E37-9C85-7CCEA512E8D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43EE42AA-3FCD-4168-8B09-A89AED74CFCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43EE42AA-3FCD-4168-8B09-A89AED74CFCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43EE42AA-3FCD-4168-8B09-A89AED74CFCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43EE42AA-3FCD-4168-8B09-A89AED74CFCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,5 @@
-﻿using System;
-using SMSTool;
+﻿using SMSTool;
+using System;
 
 namespace CodeRunner
 {
@@ -7,10 +7,10 @@ namespace CodeRunner
     {
         static void Main(string[] args)
         {
-            SMSTimer T = new SMSTimer();
-            T.Start();
+            SMSTimer timer = new SMSTimer();
+            timer.Start();
             Console.Read();
-            T.Stop();
+            timer.Stop();
         }
     }
 }
