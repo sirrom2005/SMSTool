@@ -56,7 +56,6 @@ namespace SMSTool
         {
             ShortMessageList = new List<ShortMessage>();
             var SMS = tool.ReadSMS();
-
             if (SMS.Contains("OK\r\n"))
             {
                 Regex r = new Regex(@"\+CMGL: (\d+),""(.+)"",""(.+)"",(.*),""(.+)""\r\n(.+)\r\n");

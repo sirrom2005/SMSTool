@@ -9,11 +9,11 @@ namespace SMSTool
         {
             string now = DateTime.Now.ToString();
             Console.WriteLine($"[{now}]\r\n{text}\r\n");
-            /*using (EventLog eventLog = new EventLog())
+            using (EventLog eventLog = new EventLog())
             {
-                eventLog.Source = "SMS Tool";
-                eventLog.WriteEntry($"[{now}]\r\n{text}\r\n", EventLogEntryType.Information, 101);
-            }*/
+                //eventLog.Source = "SMS Tool";
+                //eventLog.WriteEntry($"[{now}]\r\n{text}\r\n", EventLogEntryType.Information, 101);
+            }
         }
     }
 }
